@@ -8,7 +8,7 @@ const productsCollection = defineCollection({
     icon: z.string(),
     link: z.string().optional(),
     badge: z.string(),
-    status: z.enum(['live', 'beta', 'production']),
+    status: z.enum(['live', 'beta']),
     order: z.number(),
   }),
 });
