@@ -1,0 +1,152 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { getCollection } from 'astro:content';
+
+const products = await getCollection('products');
+const sortedProducts = products.sort((a, b) => a.data.order - b.data.order);
+---
+
+<Layout title="Home">
+	<nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-[#050505]/80 backdrop-blur-xl">
+		<div class="container mx-auto px-6 h-20 flex items-center justify-between">
+			<div class="flex items-center gap-3">
+				<img src="/assets/logo.png" alt="GTech" class="h-10 w-auto" />
+				<span class="font-black text-xl tracking-tighter">GTECH<span class="text-blue-500">.</span></span>
+			</div>
+			
+			<div class="hidden md:flex items-center gap-8">
+				<a href="#sobre" class="text-sm font-medium text-zinc-400 hover:text-white transition-colors">Sobre</a>
+				<a href="#produtos" class="text-sm font-medium text-zinc-400 hover:text-white transition-colors">Produtos</a>
+				<a href="#contato" class="px-5 py-2 rounded-full bg-white/5 border border-white/10 text-sm font-bold hover:bg-white/10 transition-all">Contato</a>
+			</div>
+		</div>
+	</nav>
+
+	<main>
+		<Hero />
+
+		<section id="produtos" class="py-32 bg-[#050505]">
+			<div class="container mx-auto px-6">
+				<div class="max-w-2xl mb-20">
+					<h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">Nosso Ecossistema</h2>
+					<p class="text-zinc-400 text-lg">
+						Produtos proprietários desenvolvidos sob o rigor técnico da GTech para redefinir padrões de mercado.
+					</p>
+				</div>
+
+				<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+					{sortedProducts.map(product => (
+						<ProductCard 
+							name={product.data.name}
+							description={product.data.description}
+							icon={product.data.icon}
+							link={product.data.link}
+							badge={product.data.badge}
+							status={product.data.status}
+						/>
+					))}
+				</div>
+			</div>
+		</section>
+
+		<!-- Sobre / Filosofia Section -->
+		<section id="sobre" class="py-32 border-t border-white/5">
+			<div class="container mx-auto px-6 grid md:grid-cols-2 gap-20 items-center">
+				<div>
+					<h2 class="text-4xl font-bold mb-8">Nossa Filosofia</h2>
+					<div class="space-y-6 text-zinc-400 text-lg leading-relaxed">
+						<p>
+							A GTech não é apenas uma software house. Somos um estúdio de engenharia dedicado a transformar problemas estruturais em vantagens competitivas através de design inteligente.
+						</p>
+						<p>
+							Operamos no epicentro da inovação técnica, priorizando escalabilidade, segurança e experiência do usuário em cada linha de código.
+						</p>
+					</div>
+					
+					<div class="grid grid-cols-2 gap-8 mt-12">
+						<div>
+							<div class="text-3xl font-black text-white mb-2">2022</div>
+							<div class="text-sm text-zinc-500 uppercase tracking-widest font-bold">Fundação</div>
+						</div>
+						<div>
+							<div class="text-3xl font-black text-white mb-2">4+</div>
+							<div class="text-sm text-zinc-500 uppercase tracking-widest font-bold">Produtos Ativos</div>
+						</div>
+					</div>
+				</div>
+				
+				                <div class="relative group">
+									<div class="absolute -inset-4 bg-blue-500/10 rounded-[3rem] blur-3xl group-hover:bg-blue-500/20 transition-all duration-700"></div>
+									<div class="relative aspect-square rounded-[3rem] bg-zinc-900 border border-white/10 p-12 flex items-center justify-center overflow-hidden">
+										<!-- Premium Logo Display -->
+				                        <div class="relative z-10 w-1/2 transition-transform duration-700 group-hover:scale-110">
+										    <img src="/assets/logo.png" alt="GTech Core" class="w-full h-auto drop-shadow-[0_0_30px_rgba(37,99,235,0.3)]" />
+				                        </div>
+				
+				                        <!-- Stylized Technical Background (Terminal Look) -->
+				                        <div class="absolute inset-0 p-8 font-mono text-[9px] text-blue-500/20 overflow-hidden pointer-events-none select-none leading-relaxed opacity-40">
+				                            <div class="space-y-1">
+				                                <p class="text-emerald-500/40">> Initializing GTech.Core.Engine...</p>
+				                                <p>> Loading neural_matching_algorithm.v2</p>
+				                                <p>> Establishing secure_encryption_layer [OK]</p>
+				                                <p class="text-blue-400/40">class Architecture &#123;</p>
+				                                <p class="ml-4">constructor() &#123;</p>
+				                                <p class="ml-8 text-amber-500/30">this.scalability = Infinity;</p>
+				                                <p class="ml-8 text-amber-500/30">this.performance = "sub_100ms";</p>
+				                                <p class="ml-4">&#125;</p>
+				                                <p class="ml-4">async deploy(infrastructure) &#123;</p>
+				                                <p class="ml-8">await cloud.cluster.provision(infrastructure);</p>
+				                                <p class="ml-8">return new HighFidelitySystem();</p>
+				                                <p class="ml-4">&#125;</p>
+				                                <p>&#125;</p>
+				                                <p class="text-emerald-500/40">> Deployment successful.</p>
+				                                <p>> Monitoring traffic flows...</p>
+				                                <p>> Optimizing query_optimizer [99.9%]</p>
+				                                <p class="text-blue-400/40">const GTech = new SoftwareHouse(&#123;</p>
+				                                <p class="ml-4">quality: "Uncompromising",</p>
+				                                <p class="ml-4">innovation: true</p>
+				                                <p>&#125;);</p>
+				                                <p>> Uptime: 99.9999%</p>
+				                            </div>
+				                        </div>
+									</div>
+								</div>			</div>
+		</section>
+
+		<!-- Contato / CTA -->
+		<section id="contato" class="py-32">
+			<div class="container mx-auto px-6">
+				<div class="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-[3rem] p-12 md:p-24 text-center relative overflow-hidden">
+                    <div class="absolute inset-0 opacity-20" style="background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');"></div>
+					<h2 class="text-4xl md:text-6xl font-black mb-8 relative z-10">Pronto para elevar seu padrão tecnológico?</h2>
+					<p class="text-white/80 text-xl max-w-2xl mx-auto mb-12 relative z-10">
+						Estamos prontos para transformar sua visão em uma infraestrutura digital de classe mundial.
+					</p>
+					<div class="flex flex-col md:flex-row justify-center gap-6 relative z-10">
+						<a href="mailto:tavaresgmg@gmail.com" class="px-10 py-5 bg-white text-blue-600 rounded-full font-black text-lg hover:scale-105 transition-all shadow-2xl">
+							Enviar E-mail
+						</a>
+						<a href="https://wa.me/5562984610130" target="_blank" class="px-10 py-5 bg-black text-white rounded-full font-black text-lg hover:scale-105 transition-all">
+							Chamar no WhatsApp
+						</a>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="py-12 border-t border-white/5">
+		<div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
+			<div class="text-zinc-500 text-sm">
+				© 2025 GT Tecnologia e Serviços LTDA. Todos os direitos reservados.
+			</div>
+			<div class="flex gap-8 text-sm font-bold text-zinc-400">
+				<a href="#" class="hover:text-white transition-colors">Twitter</a>
+				<a href="#" class="hover:text-white transition-colors">LinkedIn</a>
+				<a href="#" class="hover:text-white transition-colors">GitHub</a>
+			</div>
+		</div>
+	</footer>
+</Layout>

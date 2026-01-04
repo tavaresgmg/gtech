@@ -1,0 +1,57 @@
+---
+import '../styles/global.css';
+
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { 
+    title, 
+    description = "GTech - Engenharia de Software de Alta Fidelidade. Transformamos complexidade em vantagem competitiva." 
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="pt-BR" class="scroll-smooth">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/png" href="/assets/logo.png" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title} | GTech</title>
+        
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+        
+        <!-- Open Graph / Social -->
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content="/assets/logo.png" />
+	</head>
+	<body class="bg-[#050505] text-white font-['Inter'] antialiased selection:bg-blue-500/30">
+		<slot />
+	</body>
+</html>
+
+<style is:global>
+	:root {
+		--accent: 37, 99, 235;
+		--accent-gradient: linear-gradient(
+			45deg,
+			rgb(var(--accent)),
+			#4f46e5 30%,
+			white 60%
+		);
+	}
+    
+    /* Smooth Transitions */
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+        animation-duration: 0.5s;
+    }
+</style>

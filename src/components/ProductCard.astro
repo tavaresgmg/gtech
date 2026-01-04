@@ -1,0 +1,61 @@
+---
+interface Props {
+    name: string;
+    description: string;
+    icon: string;
+    link?: string;
+    badge: string;
+    status: 'live' | 'beta' | 'production';
+}
+
+const { name, description, icon, link, badge, status } = Astro.props;
+
+const statusStyles = {
+    live: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+    beta: "bg-amber-500/10 text-amber-400 border-amber-500/20",
+    production: "bg-blue-500/10 text-blue-400 border-blue-500/20"
+};
+---
+
+<div class="group relative p-8 rounded-[2rem] bg-zinc-900/50 border border-white/5 hover:border-white/10 transition-all duration-500 hover:translate-y-[-8px] flex flex-col h-full overflow-hidden">
+    <!-- Glow Effect -->
+    <div class="absolute -inset-px bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[2rem] pointer-events-none"></div>
+
+    <div class="relative z-10">
+        <div class="flex items-start justify-between mb-8">
+            <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-zinc-800 to-zinc-900 p-4 border border-white/10 group-hover:scale-110 group-hover:border-blue-500/30 transition-all duration-500 shadow-2xl flex items-center justify-center">
+                <img src={icon} alt={name} class="w-full h-full object-contain transition-all duration-500" />
+            </div>
+            <span class={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border ${statusStyles[status]}`}>
+                {badge}
+            </span>
+        </div>
+
+        <h3 class="text-2xl font-bold mb-4 group-hover:text-blue-400 transition-colors">
+            {name}
+        </h3>
+        
+        <p class="text-zinc-400 text-sm leading-relaxed mb-8 flex-grow">
+            {description}
+        </p>
+
+        <div class="mt-auto pt-6 border-t border-white/5">
+            {link ? (
+                <a href={link} target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-sm font-bold text-white group/link">
+                    Explorar Produto
+                    <svg class="transform group-hover/link:translate-x-1 transition-transform" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+            ) : (
+                <span class="text-zinc-500 text-sm font-bold flex items-center gap-2">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                    </svg>
+                    Acesso Privado
+                </span>
+            )}
+        </div>
+    </div>
+</div>
